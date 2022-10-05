@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" href="../static/css//style.css">
+    <title>Dashboard1</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+      <li class="nav-item">
+          <a class="nav-link" href="{{url_for('index')}}">Home</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{{url_for('create')}}">New Post</a>
+      </li>
+      </ul>
+  </div>
+</nav>
+
+  {% block content %}
+  <h1>{% block title %} Create a New Job {% endblock %}</h1>
+
+  <form method="post">
+      <div class="form-group">
+          <label for="title">Title</label>
+          <textarea name="title" placeholder="Job title"
+                    class="form-control">{{ request.form['title'] }}</textarea>
+      </div>
+
+      <div class="form-group">
+          <label for="description">Description</label>
+          <textarea name="description" placeholder="Job description"
+                    class="form-control">{{ request.form['description'] }}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <textarea name="location" placeholder="Job location"
+                  class="form-control">{{ request.form['location'] }}</textarea>
+    </div>
+
+    <div class="form-group">Postale code</label>
+    <textarea name="postalcode" placeholder="Job postalcode"
+              class="form-control">{{ request.form['postalcode'] }}</textarea>
+  </div>
+
+    <div class="form-group">
+      <label for="contract">Contract</label>
+      <textarea name="contract" placeholder="Job contract"
+                class="form-control">{{ request.form['contract'] }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="worktime">Work Time</label>
+    <textarea name="worktime" placeholder="Job worktime"
+              class="form-control">{{ request.form['worktime'] }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="salary">Salary</label>
+    <textarea name="salary" placeholder="Job salary"
+              class="form-control">{{ request.form['salary'] }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="company">Company</label>
+    <textarea name="company" placeholder="Job company"
+              class="form-control"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="userstate">Userstate</label>
+    <textarea name="userstate" placeholder="userstate"
+              class="form-control">{{ request.form['userstate'] }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="domain">Domain</label>
+              <select name="category" placeholder="Job domain" class="form-control">
+                <option value="domain1">Informatique</option>
+                <option value="domain2">Restauration</option>
+                <option value="domain3">Hottelerie</option>
+            </select>
+  </div>
+
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+  </form>
+  {% endblock %}
+
+
+</body>
+</html>
