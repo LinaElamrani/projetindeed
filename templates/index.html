@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" href="../static/css//style.css">
+    <title>Dashboard1</title>
+</head>
+<body>
+
+{% block content %}
+<h1>{% block title %} Welcome to Dashboard1 {% endblock %}</h1>
+{% for job in jobs %}
+    <a href="#">
+        <h2>{{ job['title'] }}</h2>
+    </a>
+    <span class="badge badge-primary">{{ job['description'] }}</span>
+    <hr>
+{% endfor %}
+{% endblock %}
+
+
+</body>
+</html>
