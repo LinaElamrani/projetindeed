@@ -10,12 +10,12 @@ def get_db_connection():
 
 def get_job(job_id):
     conn = get_db_connection()
-    post = conn.execute('SELECT * FROM jobs WHERE job_id = ?',
+    job = conn.execute('SELECT * FROM jobs WHERE job_id = ?',
                         (job_id,)).fetchone()
     conn.close()
-    if post is None:
+    if job is None:
         abort(404)
-    return post
+    return job
 
 
 
