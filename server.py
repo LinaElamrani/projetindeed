@@ -1,6 +1,10 @@
 import sqlite3
 from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
+from flask.ext.login import LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -16,7 +20,6 @@ def get_job(job_id):
     if job is None:
         abort(404)
     return job
-
 
 
 app= Flask(__name__)
