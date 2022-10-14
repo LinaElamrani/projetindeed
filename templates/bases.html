@@ -24,7 +24,7 @@
       <a href="{{url_for('login')}}" class="navbar-item">
         Login
     </a>
-    <a href="{{url_for('signup')}}" class="navbar-item">
+    <a href="#" class="navbar-item">
         Sign Up
     </a>
     <a href="#" class="navbar-item">
@@ -39,14 +39,24 @@
     {% endblock %}
   </div>
 
+  <div style="margin-top:5%; margin-left:5%">
+    <div style="width:100%;">
+     <div style="width: 80%; height: 100px; float: left;">
+        {% with messages = get_flashed_messages(with_categories=True)%}
+    {% if messages %}
+     {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+       <h5>{{ message }}<h5>
+      </div>
+     {% endfor %}
+    {% endif %}
+        {% endwith %}
 
-  <script>
-    const button = document.querySelector("#btn-learn");
-    button.addEventListener("click", event => {
-      event.currentTarget.innerText = "close";
-      // event.currentTarget.setAttribute("disabled", "");
-    });
-  </script>
+    {% block info %}
+    {% endblock %}
+     </div>
+    </div>
+   </div>
 
 
 

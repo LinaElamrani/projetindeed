@@ -6,12 +6,10 @@ from flask import session
 from flask import Response
 from werkzeug.exceptions import abort
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
-from forms import LoginForm
 import email_validator
-import models as dbHandler
-from flask import Blueprint, render_template
-
-
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
+from forms import LoginForm
+import sys
 
 
 def get_db_connection():
@@ -29,39 +27,89 @@ def get_job(job_id):
         abort(404)
     return job
 
-
-auth = Blueprint('auth', __name__)
-
-@auth.route('/login')
-def login():
-    return render_template('login.html')
-
-@auth.route('/signup')
-def signup():
-    return render_template('signup.html')
-
-@auth.route('/logout')
-def logout():
-    return render_template('logout.html')
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'projetindeed'
+
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
+
+
+class User(UserMixin):
+    def __init__(self, id, email, password):
+        if sys.version_info[0] >= 3:
+            unicode = str
+            self.id = unicode(id)
+            self.email = email
+            self.password = password
+            self.authenticated = False
+
+
+    def is_active(self):
+         return self.is_active()
+
+    def is_anonymous(self):
+         return False
+
+    def is_authenticated(self):
+         return self.authenticated
+
+    def is_active(self):
+         return True
+
+    def get_id(self):
+         return self.id
+
+@login_manager.user_loader
+def load_user(user_id):
+   conn = sqlite3.connect('database.db')
+   curs = conn.cursor()
+   curs.execute("SELECT * from users where user_id = (?)",[user_id])
+   lu = curs.fetchone()
+   if lu is None:
+      return None
+   else:
+      return User(int(lu[0]), lu[1], lu[2])
+
+
+@app.route("/login", methods=['GET','POST'])
+def login():
+  if current_user.is_authenticated:
+     return redirect(url_for('profile'))
+  form = LoginForm()
+  if form.validate_on_submit():
+     conn = sqlite3.connect('database.db')
+     curs = conn.cursor()
+     curs.execute("SELECT * FROM users where email = (?)", [form.email.data])
+     user = list(curs.fetchone())
+     Us = load_user(user[0])
+     Us_email = user[5]
+     Us_password = user[6]
+
+     flash(user)
+     flash( Us_password)
+     flash( Us_email)
+     flash(form.email.data)
+     flash(form.password.data)
+
+     if form.email.data == Us_email and form.password.data == Us_password:
+        login_user(Us, remember=form.remember.data)
+        Umail = list({form.email.data})[0].split('@')[0]
+        flash('Logged in successfully '+Umail)
+        redirect(url_for('profile'))
+     else:
+        flash('Login Unsuccessfull.')
+  return render_template('login.html',title='Login', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
-
-@app.route('/login', methods=['POST', 'GET'])
-def home():
-    if request.method=='POST':
-            email = request.form['email']
-            paswword = request.form['password']
-            dbHandler.insertUser(email, paswword)
-            users = dbHandler.retrieveUsers()
-            return render_template('index.html', users=users)
-    else:
-   		return render_template('index.html')
 
 
 @app.route("/")
