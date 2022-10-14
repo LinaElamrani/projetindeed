@@ -20,5 +20,14 @@ cur.execute("INSERT INTO jobs (title, location, postalcode, contract, worktime, 
             ('Community Manager', 'location for the job3' ,'postalcode for the job3','contract for the job3','worktime for the job3','userstate for the job3','description for the job3','salary for the job3','category_id for the job3','company_id for the job3')
             )
 
+cur.execute("INSERT INTO users (username, lastname, firstname, email, userstate, paswword) VALUES (?, ?, ?, ?, ?, ?)",
+            ('lolo', 'laurent' ,'loic','lolo@gmail.com','true','123456')
+            )
+
+cur.execute("INSERT INTO users (username, lastname, firstname, email, userstate, paswword) VALUES (?, ?, ?, ?, ?, ?)",
+            ('lili', 'Bobo' ,'lisa','lili@gmail.com','false','azerty')
+            )
+
+
 connection.commit()
 connection.close()

@@ -1,6 +1,16 @@
 import sqlite3
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect, jsonify, make_response, Response, session
+from flask import jsonify
+from flask import make_response
+from flask import session
+from flask import Response
 from werkzeug.exceptions import abort
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
+from forms import LoginForm
+import email_validator
+import models as dbHandler
+from flask import Blueprint, render_template
+
 
 
 
@@ -20,8 +30,39 @@ def get_job(job_id):
     return job
 
 
-app= Flask(__name__)
+auth = Blueprint('auth', __name__)
+
+@auth.route('/login')
+def login():
+    return render_template('login.html')
+
+@auth.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+@auth.route('/logout')
+def logout():
+    return render_template('logout.html')
+
+app = Flask(__name__)
 app.config['SECRET_KEY'] = 'projetindeed'
+
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/login', methods=['POST', 'GET'])
+def home():
+    if request.method=='POST':
+            email = request.form['email']
+            paswword = request.form['password']
+            dbHandler.insertUser(email, paswword)
+            users = dbHandler.retrieveUsers()
+            return render_template('index.html', users=users)
+    else:
+   		return render_template('index.html')
+
 
 @app.route("/")
 def index():
@@ -29,6 +70,7 @@ def index():
     jobs = conn.execute('SELECT * FROM jobs').fetchall()
     conn.close()
     return render_template('index.html', jobs=jobs)
+
 
 @app.route('/<int:job_id>')
 def job(job_id):
@@ -96,5 +138,3 @@ def delete(id):
     conn.close()
     flash('"{}" was successfully deleted!'.format(job['title']))
     return redirect(url_for('index'))
-
-# Methode .fetchall() permet de récupérer d'un coup l'ensemble du résultat d'une requête
