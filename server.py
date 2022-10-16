@@ -30,6 +30,8 @@ def get_job(job_id):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'projetindeed'
 
+# AUTHENTIFICATION / CONNECTION
+
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
@@ -42,20 +44,14 @@ class User(UserMixin):
             self.email = email
             self.password = password
             self.authenticated = False
-
-
     def is_active(self):
          return self.is_active()
-
     def is_anonymous(self):
          return False
-
     def is_authenticated(self):
          return self.authenticated
-
     def is_active(self):
          return True
-
     def get_id(self):
          return self.id
 
@@ -74,7 +70,7 @@ def load_user(user_id):
 @app.route("/login", methods=['GET','POST'])
 def login():
   if current_user.is_authenticated:
-     return redirect(url_for('profile'))
+     return redirect(url_for('index'))
   form = LoginForm()
   if form.validate_on_submit():
      conn = sqlite3.connect('database.db')
@@ -85,39 +81,76 @@ def login():
      Us_email = user[5]
      Us_password = user[6]
 
-     flash(user)
-     flash( Us_password)
-     flash( Us_email)
-     flash(form.email.data)
-     flash(form.password.data)
+    #  flash(user)
+    #  flash( Us_password)
+    #  flash( Us_email)
+    #  flash(form.email.data)
+    #  flash(form.password.data)
 
      if form.email.data == Us_email and form.password.data == Us_password:
         login_user(Us, remember=form.remember.data)
         Umail = list({form.email.data})[0].split('@')[0]
-        flash('Logged in successfully '+Umail)
-        redirect(url_for('profile'))
+        return render_template('index.html',title='Login', form=form)
      else:
         flash('Login Unsuccessfull.')
   return render_template('login.html',title='Login', form=form)
 
 
-@app.route('/logout')
+@app.route("/logout")
+@login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
-
-
-@app.route('/profile')
-def profile():
-    return render_template('profile.html')
-
-
-@app.route("/")
-def index():
     conn = get_db_connection()
     jobs = conn.execute('SELECT * FROM jobs').fetchall()
     conn.close()
     return render_template('index.html', jobs=jobs)
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')
+
+
+
+# CRUD
+
+@app.route("/")
+@login_required
+def index():
+    conn = get_db_connection()
+    jobs = conn.execute('SELECT * FROM jobs').fetchall()
+    conn.close()
+    if request.method == 'POST':
+        # flash('dede')
+        fullname = request.form['fullname']
+        email = request.form['email']
+        phone= request.form['phone']
+        cv = request.form['cv']
+
+        user = current_user
+        job= get_job(id)
+        numero = "1"
+        flash(('lolo'))
+        if not fullname:
+            flash('Title is required!')
+        if not email:
+            flash('Title is required!')
+        if not phone:
+            flash('Title is required!')
+        if not cv:
+            flash('Title is required!')
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO applications (numero, user_id, job_id) VALUES (?, ?, ?)',
+                         (numero,user,job))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('create'))
+
+    return render_template('index.html' ,jobs=jobs)
+
+
 
 
 @app.route('/<int:job_id>')

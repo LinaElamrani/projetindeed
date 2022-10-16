@@ -1,11 +1,3 @@
-h1 {
-  border: 2px #eee solid;
-  color: brown;
-  text-align: center;
-  padding: 10px;
-}
-
-
 
 
 .form-signin {
@@ -41,4 +33,157 @@ h1 {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+
+
+
+
+
+.navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-lewagon .navbar-brand img {
+  width: 40px;
+}
+#btn-AddPost{
+
+}
+
+
+.banner {
+  background-size: cover;
+  background-position: center;
+  padding: 132px 0;
+  display: flex;
+  background-color: #42539a3d;
+}
+
+.banner-img img{
+  width: 200px;
+  height: 100%;
+  display:block;
+
+}
+
+
+.banner h1 {
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.banner p {
+  font-size: 20px;
+  color: white;
+  opacity: .7;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.btn-flat {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #670BFF;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-flat:hover {
+  background: #4D04C4;
+  color: white;
+}
+
+.jobs{
+  justify-content: center;
+  width: 70%;
+  align-items: center;
+  background-color: white;
+  border-radius: 1%;
+  margin: 0 auto;
+  margin-top: -50px;
+  width: 80%;
+  padding: 16px;
+  position: absolute;
+}
+.job{
+  width: 250px;
+}
+
+
+.flex_category{
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.flex_category1{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.flex_category2{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.flex_category2 h4{
+  font-size: 17px;
+}
+
+.flex_category h4{
+  font-size: 17px;
+}
+
+.flex_category1 h4{
+  font-size: 17px;
+}
+
+.category{
+  border: 2px #82839526 solid;
+  padding: 10px;
+  background-color: white;
+}
+
+.category p{
+  color: #2c2c2c40;
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+
+.title-job {
+  text-align: center;
+  margin-top: 25px;
+  position: absolute;
+  margin-top: 266px;
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+  align-items: center;
+
+    margin-left: 40%;
+}
+.title-job h1{
+  text-align: center;
+  position: absolute;
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+  align-items: center;
+  margin-left: 40%;
+  margin-top: 32px;
+}
+
+.bigcontainer{
+  background: #4D04C4;
+  height: 800px;
+
 }

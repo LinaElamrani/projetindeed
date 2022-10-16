@@ -3,10 +3,6 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 import sqlite3
 class LoginForm(FlaskForm):
- date = StringField('date',validators=[DataRequired(),Email()])
- firstname = StringField('firstname',validators=[DataRequired(),Email()])
- lastname = StringField('lastname',validators=[DataRequired(),Email()])
- username= StringField('username',validators=[DataRequired(),Email()])
  email = StringField('email',validators=[DataRequired(),Email()])
  password = PasswordField('password',validators=[DataRequired()])
  remember = BooleanField('Remember Me')
