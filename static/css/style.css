@@ -88,6 +88,11 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
+.container{
+  padding: 10px 42px;
+  max-width: 960px;
+}
+
 .btn-flat {
   color: white;
   padding: 8px 24px;
@@ -95,11 +100,13 @@
   background: #670BFF;
   transition: background 0.3s ease;
   text-decoration: none;
+  display: block;
 }
 
 .btn-flat:hover {
   background: #4D04C4;
   color: white;
+  display: block;
 }
 
 .jobs{
@@ -109,14 +116,31 @@
   background-color: white;
   border-radius: 1%;
   margin: 0 auto;
-  margin-top: -50px;
-  width: 80%;
-  padding: 16px;
+  margin-top: -55px;
+  width: 56%;
+  padding: 11px;
   position: absolute;
+  margin-left: 23%;
+
+
 }
 .job{
   width: 250px;
+  padding-top: 438px;
+  margin: 0px 12px;
+  padding-top: 442px;
 }
+
+.jobb {
+  background-color: white;
+  border-radius: 6px;
+  padding: 10px;
+}
+.jobb h2{
+  font-size: 21px;
+  color: #292929;
+}
+
 
 
 .flex_category{
@@ -168,8 +192,8 @@
   font-weight: bolder;
   text-align: center;
   align-items: center;
+  margin-left: 36%;
 
-    margin-left: 40%;
 }
 .title-job h1{
   text-align: center;
@@ -179,11 +203,17 @@
   text-align: center;
   align-items: center;
   margin-left: 40%;
-  margin-top: 32px;
+  margin-top:74px;
+  width: 386px;
 }
 
 .bigcontainer{
   background: #4D04C4;
   height: 800px;
 
+}
+
+.annonce-job{
+  justify-content: center;
+  display: flex;
 }
