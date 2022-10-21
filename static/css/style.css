@@ -109,6 +109,21 @@
   display: block;
 }
 
+.btn-flatt {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #670BFF;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+.btn-flatt:hover {
+  background: #4D04C4;
+  color: white;
+  display: block;
+}
+
+
 .jobs{
   justify-content: center;
   width: 70%;
